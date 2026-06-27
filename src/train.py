@@ -112,6 +112,8 @@ def preprocess(df):
 
     df = transform.fit_transform(df)
 
+    column_map(pd.DataFrame(df,columns=transform.get_feature_names_out()),ohe_cols)
+
     jb.dump(imputation_values,'Models/imputation_values.pkl')
 
     jb.dump(cols_to_delete,'Models/deleted_columns.pkl')
@@ -119,5 +121,30 @@ def preprocess(df):
     jb.dump(transform,'Models/encoder.pkl')
 
     return pd.DataFrame(df,columns=transform.get_feature_names_out())
+
+def column_map(new_df,ohe_cols):
+    column_mapping = {}
+
+    for new_col_name in new_df.columns:
+        if new_col_name.startswith('transf1__'):
+            original_name = new_col_name.replace('transf1__', '')
+            column_mapping[new_col_name] = original_name
+        elif new_col_name.startswith('transf2__'):
+            post_prefix = new_col_name.replace('transf2__', '')
+            found_original_ohe = False
+            for original_ohe_feature in ohe_cols:
+                if post_prefix.startswith(f"{original_ohe_feature}_"):
+                    column_mapping[new_col_name] = original_ohe_feature
+                    found_original_ohe = True
+                    break
+            if not found_original_ohe:
+                column_mapping[new_col_name] = post_prefix 
+        elif new_col_name.startswith('remainder__'):
+            original_name = new_col_name.replace('remainder__', '')
+            column_mapping[new_col_name] = original_name
+        else:
+            column_mapping[new_col_name] = new_col_name
+
+    jb.dump(column_mapping,"Models/column_mapping.pkl")
 
 train_model()

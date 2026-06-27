@@ -22,6 +22,7 @@ from src.explain import get_explanation, plot_waterfall
 
 
 feature_desc = jb.load("Models/feature_desc.pkl")
+col_map = jb.load("Models/column_mapping.pkl")
 
 def final_chain(applicant_data):
 
@@ -40,10 +41,11 @@ def final_chain(applicant_data):
 
     for feature in explanations["risk_factors"]:
 
+        actual_feature = col_map.get(feature)
         risk_factor_info.append(
             {
-                "feature": feature,
-                "description": feature_desc.get(feature),
+                "feature": actual_feature,
+                "description": feature_desc.get(actual_feature),
                 "value": applicant_df.iloc[0][feature]
             }
         )
@@ -52,10 +54,11 @@ def final_chain(applicant_data):
 
     for feature in explanations["protective_factors"]:
 
+        actual_feature = col_map.get(feature)
         protective_factor_info.append(
             {
-                "feature": feature,
-                "description": feature_desc.get(feature),
+                "feature": actual_feature,
+                "description": feature_desc.get(actual_feature),
                 "value": applicant_df.iloc[0][feature]
             }
         )
@@ -72,7 +75,7 @@ def final_chain(applicant_data):
 
 if __name__ == '__main__':
     dff = pd.read_csv("Data/application_test.csv")
-    applicant_df = dff.iloc[23]
+    applicant_df = dff.iloc[2]
     result = final_chain(applicant_df)
     print(result["risk_score"])
     print(result["memo"])

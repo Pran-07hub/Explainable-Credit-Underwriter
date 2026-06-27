@@ -77,25 +77,25 @@ Generates professional underwriting memos using:
 
 ### Global Feature Importance
 
-![SHAP Importance](Assets/shap_feature_importance.png)
+![SHAP Importance](Assets/shap_summary.png)
 
 ### SHAP Summary Plot
 
-![SHAP Summary](Assets/shap_summary.png)
+![SHAP Summary](Assets/waterfall_plot.png)
 
 ### Customer Waterfall Plot
 
-![Waterfall](Assets/waterfall_plot.png)
+![Waterfall](Assets/waterfall_customer.png)
 
 ### Customer Memo
 
 CREDIT REVIEW MEMO
 
 Risk Assessment:
-The applicant's default risk score of 15.02% is driven by their relatively high outstanding goods price, prolonged employment period, and older age. However, these risk factors are somewhat mitigated by their strong credit history, good education level, and consistent payment behavior. Despite these concerns, the overall creditworthiness of the applicant remains solid.
+The applicant presents a moderate default risk score of 16.83%. The primary risk drivers, including the gender metric and credit amount, contribute significantly to this assessment. However, the presence of positive external sources and a relatively long employment period mitigate these risks to some extent. Overall, the risk profile indicates a need for careful consideration.
 
 Recommendation:
-Approve, as the risk score falls below the threshold of 18%.
+Approve. Despite the moderate risk score, the presence of mitigating factors suggests that the loan applicant is creditworthy, and the risk is considered manageable.
 ---
 
 ## Tech Stack
